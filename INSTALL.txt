@@ -1,0 +1,6 @@
+Instrucciones para realizar la instalacion del programa
+
+1. Se debe contar con el programa DEV-C++ 4.9.9.2
+2. Debe clonar el repositorio en su computador.
+3. Debe configurar en Execute, Parameters el archivo que contiene la informacion de las cartas.
+5. Debe seleccionar la opcion compilar y ejercutar.
