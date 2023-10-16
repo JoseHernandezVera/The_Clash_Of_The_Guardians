@@ -28,6 +28,7 @@ typedef struct {
     int contadorHistorial;
 } RegistroHistorial;
 
+
 // Función para cargar los guardianes desde un archivo .txt
 void cargarGuardianesDesdeArchivo(char* nombreArchivo, Guardian* guardianes, int* cantidadGuardianes) {
     FILE* archivo = fopen(nombreArchivo, "r");
@@ -191,7 +192,8 @@ void realizarAccionDelJugador(Jugador* jugador, Jugador* oponente, Guardian* gua
 		default:	printf("Selección no valida. Intentalo de nuevo.\n");
             
             break;
-}
+		}
+void sacarCartaAlFinalDelTurno(Jugador* jugador, Guardian* guardianes, int cantidadGuardianes);
 }
 // Función para realizar una acción aleatoria durante el turno del programa
 void accionAleatoria(Jugador* programa, Jugador* jugador, Guardian* guardianes, int cantidadGuardianes, RegistroHistorial* historial, int* contadorHistorial, int* numeroTurno) {
@@ -268,6 +270,22 @@ void sacarCartaAlFinalDelTurno(Jugador* jugador, Guardian* guardianes, int canti
     }
 }
 
+void sacarCartaComputadoraAlFinalDelTurno(Jugador* programa, Guardian* guardianes, int cantidadGuardianes) {
+    if (programa->numCartasEnMano < 3) {
+        // Generar un índice aleatorio para seleccionar una carta del mazo de guardianes
+        int indiceGuardianAleatorio = rand() % cantidadGuardianes;
+        Guardian nuevaCarta = guardianes[indiceGuardianAleatorio];
+
+        // Agregar la nueva carta a la mano de la computadora
+        programa->mano[programa->numCartasEnMano] = nuevaCarta;
+        programa->numCartasEnMano++;
+
+        printf("%s ha sacado una nueva carta: %s (PV: %d, PA: %d, PD: %d)\n", programa->nombre, nuevaCarta.nombre, nuevaCarta.puntosVida, nuevaCarta.puntosAtaque, nuevaCarta.puntosDefensa);
+    } else {
+        printf("La mano de %s está llena. No puede sacar más cartas.\n", programa->nombre);
+    }
+}
+
 // Función para iniciar el juego
 void iniciarJuego(Jugador* jugadorUsuario, Jugador* jugadorPrograma, Guardian* guardianes, int cantidadGuardianes) {
     printf("El juego ha comenzado\n");
@@ -304,10 +322,10 @@ void iniciarJuego(Jugador* jugadorUsuario, Jugador* jugadorPrograma, Guardian* g
     while (1) {
         // Turno del jugador
         realizarAccionDelJugador(jugadorUsuario, jugadorPrograma, guardianes, cantidadGuardianes, historial, &contadorHistorial, &numeroTurno);
-        
+        sacarCartaAlFinalDelTurno(jugadorUsuario, guardianes, cantidadGuardianes);
         // Verifica el estado del juego (por ejemplo, si uno de los jugadores se queda sin puntos de vida)
         if (jugadorUsuario->puntosVida <= 0) {
-            printf("%s ha perdido. ¡El programa gana!\n", jugadorUsuario->nombre);
+            printf("%s ha perdido. El programa gana\n", jugadorUsuario->nombre);
             break;
         } else if (jugadorPrograma->puntosVida <= 0) {
             printf("Felicidades Has ganado.\n");
@@ -316,6 +334,7 @@ void iniciarJuego(Jugador* jugadorUsuario, Jugador* jugadorPrograma, Guardian* g
 
         // Turno del programa
         accionAleatoria(jugadorPrograma,jugadorUsuario, guardianes, cantidadGuardianes, historial, &contadorHistorial, &numeroTurno);
+        sacarCartaComputadoraAlFinalDelTurno(jugadorPrograma, guardianes, cantidadGuardianes);
         mostrarCampoDeBatalla(jugadorUsuario, jugadorPrograma);
 
         // Verifica el estado del juego después del turno del programa
@@ -356,7 +375,7 @@ int main() {
         printf("2. Comenzar el juego\n");
         printf("3. Para ver el historial\n");
         printf("4. Salir\n");
-        printf("Seleccione una opción: ");
+        printf("Seleccione una opcion: ");
         scanf("%d", &opcion);
 
         switch (opcion) {
