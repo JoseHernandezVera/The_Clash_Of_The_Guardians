@@ -114,7 +114,7 @@ void batalla(Guardian* atacante, Guardian* defensor, RegistroHistorial* historia
     printf("%s ataca a %s con %d de daño. %s ahora tiene %d puntos de vida.\n", atacante->nombre, defensor->nombre, danio, defensor->nombre, defensor->puntosVida);
     
     // Registra el evento en el historial
-    sprintf(historial[*contadorHistorial].evento, "%s ataca a %s con %d de daño.", atacante->nombre, defensor->nombre, danio);
+    sprintf(historial[*contadorHistorial].evento, "%s ataca a %s con %d de dano.", atacante->nombre, defensor->nombre, danio);
     historial[*contadorHistorial].numeroTurno = numeroTurno;
     (*contadorHistorial)++;
 }
@@ -197,7 +197,7 @@ void sacarCartaAlFinalDelTurno(Jugador* jugador, Guardian* guardianes, int canti
 }
 // Función para realizar una acción aleatoria durante el turno del programa
 void accionAleatoria(Jugador* programa, Jugador* jugador, Guardian* guardianes, int cantidadGuardianes, RegistroHistorial* historial, int* contadorHistorial, int* numeroTurno) {
-    int accion = rand() % 6; // 0: Agregar carta, 1: Atacar
+    int accion = rand() % 6;
 
     if (accion > 2) {
         // Agregar una carta a la mesa
@@ -236,17 +236,17 @@ void accionAleatoria(Jugador* programa, Jugador* jugador, Guardian* guardianes, 
                     jugador->campoBatalla[i] = jugador->campoBatalla[i + 1];
                 }
                 jugador->numCartasEnCampo--;
-                printf("%s ataca a %s con %d de daño. %s ha sido derrotado.\n", programa->nombre, defensor->nombre, danio, defensor->nombre);
+                printf("%s ataca a %s con %d de dano. %s ha sido derrotado.\n", programa->nombre, defensor->nombre, danio, defensor->nombre);
                 
                 // Registra el evento en el historial
-                sprintf(historial[*contadorHistorial].evento, "%s ataca a %s con %d de daño. %s ha sido derrotado.", programa->nombre, defensor->nombre, danio, defensor->nombre);
+                sprintf(historial[*contadorHistorial].evento, "%s ataca a %s con %d de dano. %s ha sido derrotado.", programa->nombre, defensor->nombre, danio, defensor->nombre);
                 historial[*contadorHistorial].numeroTurno = *numeroTurno;
                 (*contadorHistorial)++;
             } else {
-                printf("%s ataca a %s con %d de daño. %s ahora tiene %d puntos de vida.\n", programa->nombre, defensor->nombre, danio, defensor->nombre, defensor->puntosVida);
+                printf("%s ataca a %s con %d de dano. %s ahora tiene %d puntos de vida.\n", programa->nombre, defensor->nombre, danio, defensor->nombre, defensor->puntosVida);
                 
                 // Registra el evento en el historial
-                sprintf(historial[*contadorHistorial].evento, "%s ataca a %s con %d de daño. %s ahora tiene %d puntos de vida.", programa->nombre, defensor->nombre, danio, defensor->nombre, defensor->puntosVida);
+                sprintf(historial[*contadorHistorial].evento, "%s ataca a %s con %d de dano. %s ahora tiene %d puntos de vida.", programa->nombre, defensor->nombre, danio, defensor->nombre, defensor->puntosVida);
                 historial[*contadorHistorial].numeroTurno = *numeroTurno;
                 (*contadorHistorial)++;
             }
@@ -266,7 +266,7 @@ void sacarCartaAlFinalDelTurno(Jugador* jugador, Guardian* guardianes, int canti
 
         printf("%s ha sacado una nueva carta: %s (PV: %d, PA: %d, PD: %d)\n", jugador->nombre, nuevaCarta.nombre, nuevaCarta.puntosVida, nuevaCarta.puntosAtaque, nuevaCarta.puntosDefensa);
     } else {
-        printf("La mano de %s está llena. No puede sacar más cartas.\n", jugador->nombre);
+        printf("La mano de %s esta llena. No puede sacar mas cartas.\n", jugador->nombre);
     }
 }
 
@@ -282,7 +282,7 @@ void sacarCartaComputadoraAlFinalDelTurno(Jugador* programa, Guardian* guardiane
 
         printf("%s ha sacado una nueva carta: %s (PV: %d, PA: %d, PD: %d)\n", programa->nombre, nuevaCarta.nombre, nuevaCarta.puntosVida, nuevaCarta.puntosAtaque, nuevaCarta.puntosDefensa);
     } else {
-        printf("La mano de %s está llena. No puede sacar más cartas.\n", programa->nombre);
+        printf("La mano de %s esta llena. No puede sacar mas cartas.\n", programa->nombre);
     }
 }
 
@@ -342,7 +342,7 @@ void iniciarJuego(Jugador* jugadorUsuario, Jugador* jugadorPrograma, Guardian* g
             printf("%s ha perdido. El programa gana\n", jugadorUsuario->nombre);
             break;
         } else if (jugadorPrograma->puntosVida <= 0) {
-            printf("¡Felicidades! Has ganado.\n");
+            printf("Felicidades Has ganado.\n");
             
             // Muestra el historial de la partida
             printf("\n--- Historial de la partida ---\n");
